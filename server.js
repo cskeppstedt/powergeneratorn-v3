@@ -10,6 +10,7 @@ const PREFIX_LENGTH = 3
 const SERVER_PORT = process.env.PORT
 
 console.info('  > Reading input file:', INPUT_FILE)
+
 fs.readFile(INPUT_FILE, 'utf8', (err, data) => {
   if (err) {
     console.error(err)
@@ -29,15 +30,8 @@ function startServer (map) {
   console.info('  > Starting Express server.')
 
   const app = express()
-
-  app.get('/', function (req, res) {
-    res.send('hello emerald sworld')
-  })
-
-  app.get('/prophecy', function (req, res) {
-    res.send(prophecy(map))
-  })
-
+  app.get('/prophecy', (req, res) => res.send(prophecy(map)))
+  app.use(express.static('static'))
   app.listen(SERVER_PORT, (...args) => {
     console.info(`  > Express server started: http://0.0.0.0:${SERVER_PORT}`)
   })
@@ -57,6 +51,8 @@ function prophecy (map) {
     sentences.push(sentence)
   }
 
-  return sentences.join("\n\n")
+  return {
+    sentences
+  }
 }
 
