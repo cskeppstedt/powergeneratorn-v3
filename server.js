@@ -7,7 +7,7 @@ const tokenize = require('./src/tokenize')
 
 const INPUT_FILE = 'test.txt'
 const PREFIX_LENGTH = 3
-const PORT = 8080
+const SERVER_PORT = process.env.PORT
 
 console.info('  > Reading input file:', INPUT_FILE)
 fs.readFile(INPUT_FILE, 'utf8', (err, data) => {
@@ -38,8 +38,8 @@ function startServer (map) {
     res.send(prophecy(map))
   })
 
-  app.listen(PORT, (...args) => {
-    console.info(`  > Express server started: http://0.0.0.0:${PORT}`)
+  app.listen(SERVER_PORT, (...args) => {
+    console.info(`  > Express server started: http://0.0.0.0:${SERVER_PORT}`)
   })
 }
 

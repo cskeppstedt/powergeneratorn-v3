@@ -1,6 +1,7 @@
 {
   "name": "pg-dragonov",
   "scripts": {
+    "start": "PORT=8080 node server.js",
     "test": "jest",
     "test:watch": "jest --watchAll"
   },
