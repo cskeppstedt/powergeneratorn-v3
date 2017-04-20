@@ -42,3 +42,10 @@ test('providing all initial words is the same as pushing the words', () => {
   const allArgsPrefix = makePrefix(2, 'warrior', 'master')
   expect(pushedPrefix.key()).toEqual(allArgsPrefix.key())
 })
+
+test('exposes a function that parses from a key', () => {
+  const key = 'warrior master'
+  const prefix = makePrefix.fromKey(key, 2)
+  expect(prefix.key()).toEqual(key)
+})
+

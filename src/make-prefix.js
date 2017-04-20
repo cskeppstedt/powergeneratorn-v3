@@ -1,3 +1,5 @@
+const DELIMITER = ' '
+
 module.exports = (prefixLength, ...initialWords) => {
   if (!prefixLength) {
     throw new Error('Specify a prefix length > 0')
@@ -16,8 +18,13 @@ module.exports = (prefixLength, ...initialWords) => {
   initialWords.forEach(push)
 
   return {
-    key: () => prefixTokens.join(' '),
+    key: () => prefixTokens.join(DELIMITER),
     push: push
   }
+}
+
+module.exports.fromKey = (key, prefixLength) => {
+  const words = key.split(DELIMITER)
+  return module.exports(prefixLength, ...words)
 }
 
