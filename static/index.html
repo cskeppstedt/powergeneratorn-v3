@@ -2,12 +2,127 @@
 <html>
   <head>
     <title>Dragon Heart III</title>
-    <link rel="stylesheet" type="text/css" href="index.css">
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+        font-size: 16px;
+        background-color: #f3f3f3;
+        color: #3e3e3e;
+        font-family: serif;
+        text-align: center;
+      }
+
+      #prophecy-content {
+        max-width: 350px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      #prophecy-link {
+        font-size: 12px;
+        color: #777;
+        margin: 10px auto;
+        padding: 20px;
+      }
+
+      #new-prophecy {
+        margin: 10px;
+      }
+
+      p {
+        line-height: 24px;
+        margin: 12px 0;
+        padding: 0;
+      }
+
+      p:first-child {
+        font-size: 24px;
+        margin-bottom: 24px;
+      }
+
+      h1 {
+        max-width: 350px;
+        margin: 0 auto;
+        padding: 20px;
+        text-align: center;
+      }
+    </style>
   </head>
   <body>
-    <button id="new-prophecy">New prophecy</button>
-    <div id="root"></div>
-    <script type="text/javascript" src="index.js""></script>
+    <h1>
+      Dragon Heart III
+      <br>— powered by unholy Markov chains
+    </h1>
+    <button id="new-prophecy" disabled>New prophecy</button>
+    <div id="prophecy-content"></div>
+    <a id="prophecy-link" href="#">permanent link to this prophecy</a>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/fetch/2.0.3/fetch.min.js"></script>
+    <script type="text/javascript">
+      var button = document.getElementById('new-prophecy')
+
+      function fetchProphecy (seed) {
+        var url = '/prophecy'
+        if (seed) {
+          url = url + '?seed=' + seed
+        }
+
+        return fetch(url).then(function (result) {
+          return result.json()
+        })
+      }
+
+      function renderProphecy (prophecy) {
+        const content = document.getElementById('prophecy-content')
+        const fragment = document.createDocumentFragment()
+        const toParagraph = function (text) {
+          const paragraph = document.createElement('p')
+          paragraph.textContent = text
+          return paragraph
+        }
+
+        prophecy.sentences
+          .map(toParagraph)
+          .forEach(fragment.appendChild.bind(fragment))
+
+        content.innerHTML = ''
+        content.appendChild(fragment)
+
+        return prophecy
+      }
+
+      function setSeedHash (prophecy) {
+        document.location.hash = '#seed=' + prophecy.seed
+        return prophecy
+      }
+
+      function setLinkFromLocation (prophecy) {
+        document.getElementById('prophecy-link').href = document.location.toString()
+        return prophecy
+      }
+
+      function setButtonDisabled (disabled, prophecy) {
+        button.disabled = disabled ? 'disabled' : ''
+        return prophecy
+      }
+
+      function newProphecy (seed) {
+        setButtonDisabled(true)
+        fetchProphecy(seed)
+          .then(renderProphecy)
+          .then(setSeedHash)
+          .then(setLinkFromLocation)
+          .then(setButtonDisabled.bind(null, false))
+      }
+
+      function parseSeed (hash) {
+        var pattern = /^#seed=(.+)$/
+        return pattern.test(hash) ? pattern.exec(hash)[1] : ''
+      }
+
+      button.addEventListener('click', function () { newProphecy() })
+      newProphecy(parseSeed(document.location.hash))
+    </script>
   </body>
 </html>
 

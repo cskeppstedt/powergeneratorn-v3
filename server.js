@@ -1,5 +1,6 @@
 const express = require('express')
 const fs = require('fs')
+const randomSeed = require('random-seed')
 
 const generate = require('./src/generate')
 const build = require('./src/build')
@@ -30,28 +31,29 @@ function startServer (map) {
   console.info('  > Starting Express server.')
 
   const app = express()
-  app.get('/prophecy', (req, res) => res.send(prophecy(map)))
+  app.get('/prophecy', (req, res) => res.send(prophecy(map, req.query.seed)))
   app.use(express.static('static'))
   app.listen(SERVER_PORT, (...args) => {
     console.info(`  > Express server started: http://0.0.0.0:${SERVER_PORT}`)
   })
 }
 
-function defaultRandomInt (maxInclusive) {
-  return Math.floor(Math.random() * (maxInclusive + 1))
-}
+function prophecy (map, seed) {
+  seed = seed || JSON.stringify(Math.random())
 
-function prophecy (map) {
-  const numSentences = 3 + defaultRandomInt(4)
+  const rand = randomSeed.create(seed)
+  const randomInt = (maxInclusive) => rand(maxInclusive + 1)
+  const numSentences = 3 + randomInt(4)
   const sentences = []
 
   for (let i=0; i<numSentences; i++) {
-    const numWords = 10 + defaultRandomInt(20)
-    const sentence = generate(defaultRandomInt, map, numWords, true)
+    const numWords = 10 + randomInt(20)
+    const sentence = generate(randomInt, map, numWords, true)
     sentences.push(sentence)
   }
 
   return {
+    seed,
     sentences
   }
 }
