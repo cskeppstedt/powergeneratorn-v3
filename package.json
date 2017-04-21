@@ -1,7 +1,7 @@
 {
   "name": "pg-dragonov",
   "scripts": {
-    "start": "PORT=8080 node server.js",
+    "start": "INPUT_FILE=input.txt PORT=8080 node server.js",
     "test": "jest",
     "test:watch": "jest --watchAll"
   },
@@ -12,9 +12,10 @@
     "jest": "^19.0.2"
   },
   "dependencies": {
+    "aws-sdk": "^2.44.0",
     "commander": "^2.9.0",
+    "concat-stream": "^1.6.0",
     "express": "^4.15.2",
-    "random-seed": "^0.3.0",
-    "s3-download": "^1.0.0"
+    "random-seed": "^0.3.0"
   }
 }
