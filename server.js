@@ -10,31 +10,34 @@ const INPUT_FILE = 'input.txt'
 const PREFIX_LENGTH = 3
 const SERVER_PORT = process.env.PORT
 
-console.info('  > Reading input file:', INPUT_FILE)
+function buildMap () {
+  console.info('  > Reading input file:', INPUT_FILE)
+  return new Promise((resolve, reject) => {
+    fs.readFile(INPUT_FILE, 'utf8', (err, data) => {
+      if (err) {
+        return reject(err)
+      }
 
-fs.readFile(INPUT_FILE, 'utf8', (err, data) => {
-  if (err) {
-    console.error(err)
-    return process.exit(1)
-  }
+      console.info('  > Tokenizing and building chain map.')
+      const tokens = tokenize(data)
+      const map = build(tokens, PREFIX_LENGTH)
 
-  console.info('  > Tokenizing and building chain map.')
-  const tokens = tokenize(data)
-  const map = build(tokens, PREFIX_LENGTH)
-
-  console.info(`  > Chain map contains ${map.keys().length} unique keys.`)
-
-  startServer(map, PREFIX_LENGTH)
-})
+      console.info(`  > Chain map contains ${map.keys().length} unique keys.`)
+      resolve(map)
+    })
+  })
+}
 
 function startServer (map) {
   console.info('  > Starting Express server.')
-
-  const app = express()
-  app.get('/prophecy', (req, res) => res.send(prophecy(map, req.query.seed)))
-  app.use(express.static('static'))
-  app.listen(SERVER_PORT, (...args) => {
-    console.info(`  > Express server started: http://0.0.0.0:${SERVER_PORT}`)
+  return new Promise((resolve, reject) => {
+    const app = express()
+    app.get('/prophecy', (req, res) => res.send(prophecy(map, req.query.seed)))
+    app.use(express.static('static'))
+    app.listen(SERVER_PORT, (...args) => {
+      console.info(`  > Express server started: http://0.0.0.0:${SERVER_PORT}`)
+      resolve(map)
+    })
   })
 }
 
@@ -57,4 +60,7 @@ function prophecy (map, seed) {
     sentences
   }
 }
+
+// entry-point; build chain-map and start server
+buildMap().then(startServer)
 
