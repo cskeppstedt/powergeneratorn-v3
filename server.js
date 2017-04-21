@@ -6,7 +6,7 @@ const generate = require('./src/generate')
 const build = require('./src/build')
 const tokenize = require('./src/tokenize')
 
-const INPUT_FILE = 'test.txt'
+const INPUT_FILE = 'input.txt'
 const PREFIX_LENGTH = 3
 const SERVER_PORT = process.env.PORT
 
