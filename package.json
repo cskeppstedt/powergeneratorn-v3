@@ -1,5 +1,5 @@
 {
-  "name": "pg-dragonov",
+  "name": "powergeneratorn-v3",
   "scripts": {
     "start": "heroku local web",
     "test": "jest",
@@ -7,6 +7,13 @@
   },
   "version": "1.0.0",
   "main": "index.js",
+  "respository": {
+    "type": "git",
+    "url": "https://github.com/cskeppstedt/powergeneratorn-v3.git"
+  },
+  "bugs": {
+    "url": "https://github.com/cskeppstedt/powergeneratorn-v3/issues"
+  },
   "license": "MIT",
   "devDependencies": {
     "jest": "^19.0.2"
