@@ -1,7 +1,7 @@
 {
   "name": "pg-dragonov",
   "scripts": {
-    "start": "INPUT_FILE=input.txt PORT=8080 node server.js",
+    "start": "heroku local web",
     "test": "jest",
     "test:watch": "jest --watchAll"
   },
