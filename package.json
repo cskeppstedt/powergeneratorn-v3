@@ -2,7 +2,9 @@
   "name": "powergeneratorn-v3",
   "scripts": {
     "start": "heroku local web",
-    "test": "jest",
+    "lint": "eslint .",
+    "lint:fix": "npm run lint -- --fix",
+    "test": "npm run lint && jest",
     "test:watch": "jest --watchAll"
   },
   "version": "1.0.0",
@@ -19,6 +21,13 @@
   },
   "license": "MIT",
   "devDependencies": {
+    "eslint": "^3.19.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jest": "^19.0.1",
+    "eslint-plugin-node": "^4.2.2",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1",
     "jest": "^19.0.2"
   },
   "dependencies": {
