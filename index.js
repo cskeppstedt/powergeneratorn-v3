@@ -33,4 +33,3 @@ fs.readFile(program.inputFile, 'utf8', (err, data) => {
 
   console.log(text)
 })
-

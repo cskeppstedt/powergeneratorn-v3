@@ -2,10 +2,10 @@ const tokenize = require('./tokenize')
 
 test('empty/null/undefined string returns empty array', () => {
   const inputs = ['', null, undefined]
-  inputs.forEach((input => {
+  inputs.forEach(input => {
     const expected = []
     expect(tokenize(input)).toEqual(expected)
-  }))
+  })
 })
 
 test('single word is returned as single element array', () => {
@@ -33,8 +33,7 @@ test('capitalization and punctuation is preserved', () => {
 })
 
 test('newlines are ignored', () => {
-  const input = "the majestic\nDragon Lord\n\nsoares in the sky"
+  const input = 'the majestic\nDragon Lord\n\nsoares in the sky'
   const expected = ['the', 'majestic', 'Dragon', 'Lord', 'soares', 'in', 'the', 'sky']
   expect(tokenize(input)).toEqual(expected)
 })
-

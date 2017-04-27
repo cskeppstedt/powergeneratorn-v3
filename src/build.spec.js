@@ -46,7 +46,7 @@ test('multiple word input generates a map with all prefixes choices', () => {
   expect(choicesFor('warrior,', 'the')).toEqual(['master.', 'master'])
   expect(choicesFor('the', 'master.')).toEqual(['He\'s'])
   expect(choicesFor('master.', 'He\'s')).toEqual(['the'])
-  expect(choicesFor('the','master')).toEqual(['of'])
+  expect(choicesFor('the', 'master')).toEqual(['of'])
   expect(choicesFor('master', 'of')).toEqual(['disaster!'])
   expect(choicesFor('of', 'disaster!')).toEqual([])
 })
@@ -71,4 +71,3 @@ test('the map supports other prefix lengths', () => {
   expect(choicesFor('warrior,', 'the', 'master')).toEqual(['of'])
   expect(choicesFor('the', 'master', 'of')).toEqual(['disaster!'])
 })
-

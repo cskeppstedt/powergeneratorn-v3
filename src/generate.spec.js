@@ -87,7 +87,7 @@ test('can start at a random prefix', () => {
   const map = build(tokenize('the first the second the first again the second again'))
   const expected = 'Second the.'
   const numWords = 2
-  const randomInt = (maxInclusive) => Math.floor(maxInclusive/2)
+  const randomInt = (maxInclusive) => Math.floor(maxInclusive / 2)
   const actual = generate(randomInt, map, numWords, true)
   expect(actual).toEqual(expected)
 })
@@ -118,4 +118,3 @@ test('decapitalizes The (when not the leading word)', () => {
   const actual = generate(randomInt, map, numWords)
   expect(actual).toEqual(expected)
 })
-

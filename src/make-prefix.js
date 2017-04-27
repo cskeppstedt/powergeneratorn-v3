@@ -11,7 +11,7 @@ module.exports = (prefixLength, ...initialWords) => {
     prefixTokens.push(word)
   }
 
-  for (let i=0; i<prefixLength; i++) {
+  for (let i = 0; i < prefixLength; i++) {
     prefixTokens.push('')
   }
 
@@ -27,4 +27,3 @@ module.exports.fromKey = (key, prefixLength) => {
   const words = key.split(DELIMITER)
   return module.exports(prefixLength, ...words)
 }
-

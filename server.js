@@ -74,7 +74,7 @@ function prophecy (map, seed) {
   const numSentences = 3 + randomInt(4)
   const sentences = []
 
-  for (let i=0; i<numSentences; i++) {
+  for (let i = 0; i < numSentences; i++) {
     const numWords = 10 + randomInt(20)
     const sentence = generate(randomInt, map, numWords, true)
     sentences.push(sentence)
@@ -93,4 +93,3 @@ buildMap(getInputFileReadStream())
     console.error(err.toString())
     process.exit(1)
   })
-

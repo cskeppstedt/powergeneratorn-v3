@@ -48,4 +48,3 @@ test('exposes a function that parses from a key', () => {
   const prefix = makePrefix.fromKey(key, 2)
   expect(prefix.key()).toEqual(key)
 })
-

@@ -14,10 +14,6 @@ function pickPrefix (randomInt, map) {
   return makePrefix.fromKey(key, map.prefixLength())
 }
 
-function randomPrefix (map) {
-  const prefixKeys = map.map()
-}
-
 function normalize (word) {
   return /The/.test(word)
     ? 'the'
@@ -41,7 +37,7 @@ function terminate (sentence) {
     return sentence.substring(0, sentence.length - 1) + '.'
   }
 
-  if (/[\!\?]$/.test(sentence)) {
+  if (/[!?]$/.test(sentence)) {
     return sentence
   }
 
@@ -59,7 +55,7 @@ module.exports = (randomInt, map, numWords, useRandomStart = false) => {
 
   const words = []
 
-  for(let i=0; i<numWords; i++) {
+  for (let i = 0; i < numWords; i++) {
     const choices = map.choicesFor(prefix)
 
     if (choices.length === 0) {
@@ -82,4 +78,3 @@ module.exports = (randomInt, map, numWords, useRandomStart = false) => {
 
   return terminate(capitalize(words.join(' ')))
 }
-
