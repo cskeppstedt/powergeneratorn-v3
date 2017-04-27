@@ -30,7 +30,7 @@ test('single word input generates a choice for empty prefix', () => {
   expect(map.choicesFor(prefix)).toEqual(['warrior'])
 })
 
-test('multiple word input generates map with counts', () => {
+test('multiple word input generates a map with all prefixes choices', () => {
   const input = tokenize(
     'He\'s the warrior, the master. ' +
     'He\'s the warrior, the master of disaster!'
