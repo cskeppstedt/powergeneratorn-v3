@@ -51,22 +51,24 @@ test('multiple word input generates map with counts', () => {
   expect(choicesFor('of', 'disaster!')).toEqual([])
 })
 
-// test('the map supports other prefix lengths', () => {
-//   const input = tokenize(
-//     'He\'s the warrior, the master. ' +
-//     'He\'s the warrior, the master of disaster!'
-//   )
-//   const map = build(input, 3)
-//   expect(map.keys()).toEqual([' ', 'He\'s', 'the', 'warrior,', 'master.', 'master', 'of', 'disaster!'])
-//   expect(map.choicesFor('  ')).toEqual(['He\'s'])
-//   expect(map.choicesFor('  He\'s')).toEqual(['the'])
-//   expect(map.choicesFor(' He\'s the')).toEqual(['warrior'])
-//   expect(map.choicesFor('He\'s the warrior,')).toEqual(['the'])
-//   expect(map.choicesFor('the warrior, the')).toEqual(['master', 'master.'])
-//   expect(map.choicesFor('warrior, the master.')).toEqual(['He\'s'])
-//   expect(map.choicesFor('the master. He\'s')).toEqual(['the'])
-//   expect(map.choicesFor('master. He\'s the')).toEqual(['warrior,'])
-//   expect(map.choicesFor('warrior, the master')).toEqual(['of'])
-//   expect(map.choicesFor('the master of')).toEqual(['disaster!'])
-// })
+test('the map supports other prefix lengths', () => {
+  const input = tokenize(
+    'He\'s the warrior, the master. ' +
+    'He\'s the warrior, the master of disaster!'
+  )
+  const map = build(input, 3)
+  const choicesFor = (...words) => map.choicesFor(makePrefix(map.prefixLength(), ...words))
+
+  expect(map.keys()).toEqual([' ', 'He\'s', 'the', 'warrior,', 'master.', 'master', 'of', 'disaster!'])
+  expect(choicesFor('', '', '')).toEqual(['He\'s'])
+  expect(choicesFor('', '', 'He\'s')).toEqual(['the'])
+  expect(choicesFor('', 'He\'s', 'the')).toEqual(['warrior,'])
+  expect(choicesFor('He\'s', 'the', 'warrior,')).toEqual(['the', 'the'])
+  expect(choicesFor('the', 'warrior,', 'the')).toEqual(['master.', 'master'])
+  expect(choicesFor('warrior,', 'the', 'master.')).toEqual(['He\'s'])
+  expect(choicesFor('the', 'master.', 'He\'s')).toEqual(['the'])
+  expect(choicesFor('master.', 'He\'s', 'the')).toEqual(['warrior,'])
+  expect(choicesFor('warrior,', 'the', 'master')).toEqual(['of'])
+  expect(choicesFor('the', 'master', 'of')).toEqual(['disaster!'])
+})
 
