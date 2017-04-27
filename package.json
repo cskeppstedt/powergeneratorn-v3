@@ -2,8 +2,8 @@
   "name": "powergeneratorn-v3",
   "scripts": {
     "start": "heroku local web",
-    "lint": "eslint .",
-    "lint:fix": "npm run lint -- --fix",
+    "lint": "eslint . --max-warnings 0",
+    "lint:fix": "eslint . --fix",
     "test": "npm run lint && jest",
     "test:watch": "jest --watchAll"
   },
