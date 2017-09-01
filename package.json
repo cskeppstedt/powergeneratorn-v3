@@ -1,5 +1,5 @@
 {
-  n"name": "powergeneratorn-v3",
+  "name": "powergeneratorn-v3",
   "scripts": {
     "start": "heroku local web",
     "lint": "eslint . --max-warnings 0",
