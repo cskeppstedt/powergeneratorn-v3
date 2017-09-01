@@ -1,5 +1,5 @@
 {
-  "name": "powergeneratorn-v3",
+  n"name": "powergeneratorn-v3",
   "scripts": {
     "start": "heroku local web",
     "lint": "eslint . --max-warnings 0",
@@ -36,5 +36,8 @@
     "concat-stream": "^1.6.0",
     "express": "^4.15.2",
     "random-seed": "^0.3.0"
+  },
+  "engines": {
+    "node": "^8.0.0"
   }
 }
